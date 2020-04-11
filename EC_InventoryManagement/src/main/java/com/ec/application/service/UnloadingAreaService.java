@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ec.application.Projections.IdNameProjections;
 import com.ec.application.model.BasicEntities.UnloadingArea;
-import com.ec.application.model.BasicEntities.Vendor;
 import com.ec.application.repository.UnloadingAreaRepo;
 
 @Service
@@ -19,6 +18,9 @@ public class UnloadingAreaService
 {
 	@Autowired
 	UnloadingAreaRepo UnloadingAreaRepo;
+	
+	@Autowired
+	CheckBeforeDeleteService checkBeforeDeleteService;
 	
 	public Page<UnloadingArea> findAll(Pageable pageable)
 	{
@@ -72,14 +74,10 @@ public class UnloadingAreaService
 	}
 	public void deleteUnloadingArea(Long id) throws Exception 
 	{
-		try
-		{
+		if(!checkBeforeDeleteService.isunloadingAreaUsed(id))
 			UnloadingAreaRepo.softDeleteById(id);
-		}
-		catch(Exception e)
-		{
-			throw new Exception("Not able to delete UnloadingArea");
-		}
+		else 
+			throw new Exception("UnloadingArea in Use. Cannot Delete.");
 	}
 
 	public ArrayList<UnloadingArea> findUnloadingAreasByName(String name) 

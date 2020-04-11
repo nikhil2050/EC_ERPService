@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ec.application.Projections.IdNameProjections;
-import com.ec.application.model.BasicEntities.Location;
+import com.ec.application.model.BasicEntities.UsageLocation;
 import com.ec.application.model.BasicEntities.UnloadingArea;
 import com.ec.application.repository.LocationRepo;
 
@@ -20,12 +20,15 @@ public class LocationService
 	@Autowired
 	LocationRepo LocationRepo;
 	
-	public Page<Location> findAll(Pageable pageable)
+	@Autowired
+	CheckBeforeDeleteService checkBeforeDeleteService;
+	
+	public Page<UsageLocation> findAll(Pageable pageable)
 	{
 		return LocationRepo.findAll(pageable);
     }
 	
-	public Location createLocation(Location payload) throws Exception 
+	public UsageLocation createLocation(UsageLocation payload) throws Exception 
 	{
 		if(!LocationRepo.existsByLocationName(payload.getLocationName()))
 		{
@@ -38,12 +41,12 @@ public class LocationService
 		}
     }
 
-	public Location updateLocation(Long id, Location payload) throws Exception 
+	public UsageLocation updateLocation(Long id, UsageLocation payload) throws Exception 
 	{
-		Optional<Location> LocationForUpdateOpt = LocationRepo.findById(id);
-        Location LocationForUpdate = LocationForUpdateOpt.get();
+		Optional<UsageLocation> LocationForUpdateOpt = LocationRepo.findById(id);
+        UsageLocation LocationForUpdate = LocationForUpdateOpt.get();
         
-		Location newLocation = new Location();
+		UsageLocation newLocation = new UsageLocation();
         newLocation = payload;
         if(!LocationRepo.existsByLocationName(newLocation.getLocationName()) && 
         		!LocationForUpdate.getLocationName().equalsIgnoreCase(newLocation.getLocationName()))
@@ -65,31 +68,28 @@ public class LocationService
         
     }
 
-	public Location findSingleLocation(Long id) 
+	public UsageLocation findSingleLocation(Long id) 
 	{
-		Optional<Location> Locations = LocationRepo.findById(id);
+		Optional<UsageLocation> Locations = LocationRepo.findById(id);
 		return Locations.get();
 	}
 	public void deleteLocation(Long id) throws Exception 
 	{
-		try
-		{
+		if(!checkBeforeDeleteService.isLocationUsed(id))
 			LocationRepo.softDeleteById(id);
-		}
-		catch(Exception e)
-		{
-			throw new Exception("Not able to delete Location");
-		}
+		else
+			throw new Exception("Location in use. Cannot delete.");
+		
 	}
 
-	public ArrayList<Location> findLocationsByName(String name) 
+	public ArrayList<UsageLocation> findLocationsByName(String name) 
 	{
-		ArrayList<Location> locationList = new ArrayList<Location>();
+		ArrayList<UsageLocation> locationList = new ArrayList<UsageLocation>();
 		locationList = LocationRepo.findByLocationName(name);
 		return locationList;
 	}
 
-	public ArrayList<Location> findLocationsByPartialName(String name) 
+	public ArrayList<UsageLocation> findLocationsByPartialName(String name) 
 	{
 		return LocationRepo.findByPartialName(name);
 	}
@@ -102,7 +102,7 @@ public class LocationService
 	
 	public boolean checkIfUnloadingAreaExists(Long id)
 	{
-		Optional<Location> location = LocationRepo.findById(id);
+		Optional<UsageLocation> location = LocationRepo.findById(id);
 		if(location.isPresent())
 			return true;
 		else

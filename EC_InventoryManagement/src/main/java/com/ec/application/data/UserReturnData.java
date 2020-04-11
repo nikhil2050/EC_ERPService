@@ -1,23 +1,21 @@
 package com.ec.application.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class UpdateRolesForUserData 
+public class UserReturnData 
 {
 	String username;
-	ArrayList<String> roles;
+	List<String> roles;
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public ArrayList<String> getRoles() {
+	public List<String> getRoles() {
 		return roles;
 	}
-	public void setRoles(ArrayList<String> roles) {
+	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
-	
-
 }

@@ -9,22 +9,19 @@ import org.springframework.stereotype.Service;
 import com.ec.application.data.OutwardInventoryData;
 import com.ec.application.data.OutwardInventoryWithDropdownValues;
 import com.ec.application.model.OutwardInventory;
-import com.ec.application.repository.ContractorRepo;
 import com.ec.application.repository.LocationRepo;
 import com.ec.application.repository.OutwardInventoryRepo;
 import com.ec.application.repository.ProductRepo;
 import com.ec.application.repository.StockRepo;
 import com.ec.application.repository.UnloadingAreaRepo;
-import com.ec.application.repository.VendorRepo;
-
 @Service
 public class OutwardInventoryService 
 {
 	@Autowired
-	ProductRepo productRepo;
+	ProductService productService;
 	
 	@Autowired
-	VendorRepo vendorRepo;
+	ProductRepo productRepo;
 	
 	@Autowired
 	UnloadingAreaRepo unloadingAreaRepo;
@@ -40,9 +37,6 @@ public class OutwardInventoryService
 	
 	@Autowired
 	LocationRepo locationRepo;
-	
-	@Autowired
-	ContractorRepo contractorRepo;
 	
 	@Autowired
 	StockRepo stockRepo;
@@ -100,16 +94,16 @@ public class OutwardInventoryService
 		
 		
 	}
-	private void setFields(OutwardInventory outwardnventory, OutwardInventoryData oiData) 
+	private void setFields(OutwardInventory outwardnventory, OutwardInventoryData oiData) throws Exception 
 	{
 		outwardnventory.setDate(oiData.getDate());
-		outwardnventory.setLocation(locationRepo.findById(oiData.getUsageLocation()).get());
-		outwardnventory.setProduct(productRepo.findById(oiData.getProductId()).get());
+		outwardnventory.setUsageLocation(locationRepo.findById(oiData.getUsageLocation()).get());
+		outwardnventory.setProduct(productService.findSingleProduct(oiData.getProductId()));
 		outwardnventory.setPurpose(oiData.getPurpose());
 		outwardnventory.setQuantity(oiData.getQuantity());
 		outwardnventory.setSlipNo(oiData.getSlipNo());
 		outwardnventory.setUnloadingArea(unloadingAreaRepo.findById(oiData.getUnloadingAreaId()).get());
-		outwardnventory.setContractor(contractorRepo.findById(oiData.getContractorId()).get());
+		//outwardnventory.setContractor(contractorRepo.findById(oiData.getContractorId()).get());
 	}
 
 	private void validateInputs(OutwardInventoryData oiData) throws Exception 
@@ -119,8 +113,8 @@ public class OutwardInventoryService
 		
 		if(!productRepo.existsById(oiData.getProductId()))
 				throw new Exception("Product with ID not found");
-		if(!contractorRepo.existsById(oiData.getContractorId()))
-			throw new Exception("Vendor with ID not found");
+		//if(!contractorRepo.existsById(oiData.getContractorId()))
+		//	throw new Exception("Vendor with ID not found");
 		if(!unloadingAreaRepo.existsById(oiData.getUnloadingAreaId()))
 			throw new Exception("Unloading Area with ID not found");
 		if(!locationRepo.existsById(oiData.getUsageLocation()))

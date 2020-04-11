@@ -18,19 +18,16 @@ import org.hibernate.envers.Audited;
 import org.springframework.lang.NonNull;
 
 import com.ec.application.SoftDelete.SoftDeletableEntity;
-import com.ec.application.model.BasicEntities.UsageLocation;
 import com.ec.application.model.BasicEntities.Product;
-import com.ec.application.model.BasicEntities.UnloadingArea;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "outward_inventory")
+@Table(name = "lost_damaged_inventory")
 @Audited
 @Where(clause = SoftDeletableEntity.SOFT_DELETED_CLAUSE)
-public class OutwardInventory extends SoftDeletableEntity
+public class LostDamagedInventory extends SoftDeletableEntity
 {
-
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	Long Id;
@@ -48,74 +45,57 @@ public class OutwardInventory extends SoftDeletableEntity
 	@NonNull
 	Float quantity;
 	
-	String SlipNo;
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name="unloadingAreaId",nullable=false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	UnloadingArea unloadingArea;
-	
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name="locationId",nullable=false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	UsageLocation usageLocation;
-	String purpose;
 	Float closingStock;
-	public Long getId() {
-		return Id;
-	}
-	public void setId(Long id) {
-		Id = id;
-	}
+	
+	@NonNull
+	String locationOfTheft;
+
+	
 	public Date getDate() {
 		return Date;
 	}
+
 	public void setDate(Date date) {
 		Date = date;
 	}
-	
+
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
 	public Product getProduct() {
 		return product;
 	}
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	public Float getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(Float quantity) {
 		this.quantity = quantity;
 	}
-	public String getSlipNo() {
-		return SlipNo;
-	}
-	public void setSlipNo(String slipNo) {
-		SlipNo = slipNo;
-	}
-	public UnloadingArea getUnloadingArea() {
-		return unloadingArea;
-	}
-	public void setUnloadingArea(UnloadingArea unloadingArea) {
-		this.unloadingArea = unloadingArea;
-	}
-	
-	public UsageLocation getUsageLocation() {
-		return usageLocation;
-	}
-	public void setUsageLocation(UsageLocation usageLocation) {
-		this.usageLocation = usageLocation;
-	}
-	public String getPurpose() {
-		return purpose;
-	}
-	public void setPurpose(String purpose) {
-		this.purpose = purpose;
-	}
+
 	public Float getClosingStock() {
 		return closingStock;
 	}
+
 	public void setClosingStock(Float closingStock) {
 		this.closingStock = closingStock;
 	}
-	
-	
+
+	public String getLocationOfTheft() {
+		return locationOfTheft;
+	}
+
+	public void setLocationOfTheft(String locationOfTheft) {
+		this.locationOfTheft = locationOfTheft;
+	}
 }

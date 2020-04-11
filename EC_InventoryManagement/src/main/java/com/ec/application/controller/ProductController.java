@@ -26,7 +26,7 @@ import com.ec.application.model.BasicEntities.Product;
 import com.ec.application.service.ProductService;
 
 @RestController
-@RequestMapping("ec/product")
+@RequestMapping("/product")
 public class ProductController 
 {
 	@Autowired
@@ -41,7 +41,7 @@ public class ProductController
 	}
 	
 	@GetMapping("/{id}")
-	public Product findProductbyvehicleNoProducts(@PathVariable long id) 
+	public Product findProductbyvehicleNoProducts(@PathVariable long id) throws Exception 
 	{
 		return productService.findSingleProduct(id);
 	}

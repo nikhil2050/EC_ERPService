@@ -27,8 +27,22 @@ public class ProductService
 	@Autowired
 	CategoryRepo categoryRepo;
 	
+	@Autowired
+	CheckBeforeDeleteService checkBeforeDeleteService;
+	
+	@Autowired
+	UserDetailsService userDetailsService;
+	
 	public Page<Product> findAll(Pageable pageable)
 	{
+		try
+		{
+			System.out.println(userDetailsService.getCurrentUser().getUsername());
+		}
+		catch(Exception e)
+		{
+			
+		}
 		return productRepo.findAll(pageable);
     }
 	
@@ -92,21 +106,22 @@ public class ProductService
         
     }
 
-	public Product findSingleProduct(Long id) 
+	public Product findSingleProduct(Long id) throws Exception 
 	{
-		Optional<Product> Products = productRepo.findById(id);
-		return Products.get();
+		Product product = new Product();
+		Optional<Product> productOpt = productRepo.findById(id);
+		if(!productOpt.isPresent())
+			throw new Exception("Product Not Found With product ID");
+		else
+			product = productOpt.get();
+		return product;
 	}
 	public void deleteProduct(Long id) throws Exception 
 	{
-		try
-		{
-			productRepo.softDeleteById(id);
-		}
-		catch(Exception e)
-		{
-			throw new Exception("Not able to delete Product");
-		}
+		if(!checkBeforeDeleteService.isProductUsed(id))
+				productRepo.softDeleteById(id);
+			else
+				throw new Exception("Cannot Delete. Product already in use");
 	}
 
 	public ArrayList<Product> findProductsByName(String name) 
