@@ -50,10 +50,31 @@
        <scope>provided</scope>
     </dependency>
 
-    <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
+	<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-core</artifactId>
+		<version>RELEASE</version>
+		<scope>compile</scope>
+	</dependency>
+
+<!--     <dependency> -->
+<!--        <groupId>org.springframework.boot</groupId> -->
+<!--        <artifactId>spring-boot-starter-security</artifactId> -->
+<!--     </dependency> -->
+
+	<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+<!-- 	<dependency> -->
+<!-- 	    <groupId>org.springframework.cloud</groupId> -->
+<!-- 	    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
+<!-- 	    <version>2.1.5.RELEASE</version> -->
+<!-- 	</dependency> -->
+
+	<!-- https://mvnrepository.com/artifact/com.netflix.zuul/zuul-netflix -->
+<!-- 	<dependency> -->
+<!-- 	    <groupId>com.netflix.zuul</groupId> -->
+<!-- 	    <artifactId>zuul-netflix</artifactId> -->
+<!-- 	    <version>1.2.2</version> -->
+<!-- 	</dependency> -->
 
     <dependency>
        <groupId>io.jsonwebtoken</groupId>

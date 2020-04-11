@@ -21,7 +21,7 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID> {
 
         Assert.notNull(id, "The given id must not be null!");
         this.softDelete(findById(id).orElseThrow(() -> new EmptyResultDataAccessException(
-                String.format("No %s entity with id %s exists!", "", id), 1)));
+                String.format("No entity with id %s exists!", id), 1)));
     }
 
 }

@@ -1,0 +1,889 @@
+{
+	"variables": [],
+	"info": {
+		"name": "EvergreenCity_ERP",
+		"_postman_id": "a185ddfe-be45-f9b5-91dd-77116220931b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Erp",
+			"description": "",
+			"item": [
+				{
+					"name": "Login",
+					"description": "",
+					"item": [
+						{
+							"name": "ErpLogin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/login",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"userName\":\"sridhar\",\n\t\"password\":\"Test@123\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ErpEmployee",
+					"description": "",
+					"item": [
+						{
+							"name": "ErpCreateEmployee",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/employee/create",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"employeeName\": \"nik\",\n\t\"mobileNo\": \"9123456789\",\n\t\"emergencyContactNo\": \"9012345678\",\n\t\"address\": \"Mviuewgu vwojuguv, vweugcb, Mumbai- 410099! !@#$%^&*()\",\n\t\"XXXbirthDate\": \"1990-02-01\",\n\t\"XXXjoiningDate\": \"2020-02-01\",\n\t\"department\": \"Manufacturing department\",\n\t\"user\":{\n\t\t\"userName\":\"usrnik2\",\n\t\t\"roles\":[\"clerk\"]\n\t}\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetEmployee",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/employee/id=2",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"employeeName\": \"nik1\",\n\t\"mobileNo\": \"9123456789\",\n\t\"emergencyContactNo\": \"9012345678\",\n\t\"address\": \"Mviuewgu vwojuguv, vweugcb, Mumbai- 410099! !@#$%^&*()\",\n\t\"XXXbirthDate\": \"1990-02-01\",\n\t\"XXXjoiningDate\": \"2020-02-01\",\n\t\"department\": \"Manufacturing department\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpUpdateEmployee",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/employee/id=2",
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"employeeName\": \"nik1  UPDATED\",\n    \"userName\": \"temp1\",\n    \"mobileNo\": \"9123456789\",\n    \"emergencyContactNo\": \"+91-9012345678\",\n    \"address\": \"Mviuewgu vwojuguv, vweugcb, Mumbai- 410099! !@#$%^&*()\",\n    \"birthDate\": 633810600000,\n    \"joiningDate\": 1580495400000,\n    \"department\": \"Manufacturing department UPDATED\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpDeleteEmployee",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/employee/id=45",
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ErpLeaveApplication",
+					"description": "",
+					"item": [
+						{
+							"name": "ErpCreateLeaveApplication",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/create/employeeId/27",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"leaveAccrued\": 11,\n\t\"fromDate\": \"2020-04-10\",\n\t\"toDate\": \"2020-04-10\",\n\t\"reason\": \"Corona 2\",\n\t\"leaveBalance\":6,\n\t\"leaveStatus\": \"Pending Approval\",\n\t\"leaveApproverEmployee\": {\n\t\t\"employeeId\":25\n\t}\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetLeaveApplication",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/id=44",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"employeeName\": \"nik1\",\n\t\"mobileNo\": \"9123456789\",\n\t\"emergencyContactNo\": \"9012345678\",\n\t\"address\": \"Mviuewgu vwojuguv, vweugcb, Mumbai- 410099! !@#$%^&*()\",\n\t\"XXXbirthDate\": \"1990-02-01\",\n\t\"XXXjoiningDate\": \"2020-02-01\",\n\t\"department\": \"Manufacturing department\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetLeaveApplication_Unapproved",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": {
+									"raw": "http://{{serverUrl}}/ec/erp/leaveApplication/employee/3/leaveApplication/list?page=0&size=3",
+									"protocol": "http",
+									"host": [
+										"{{serverUrl}}"
+									],
+									"path": [
+										"ec",
+										"erp",
+										"leaveApplication",
+										"employee",
+										"3",
+										"leaveApplication",
+										"list"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"equals": true,
+											"description": ""
+										},
+										{
+											"key": "size",
+											"value": "3",
+											"equals": true,
+											"description": ""
+										}
+									],
+									"variable": []
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"employeeName\": \"nik1\",\n\t\"mobileNo\": \"9123456789\",\n\t\"emergencyContactNo\": \"9012345678\",\n\t\"address\": \"Mviuewgu vwojuguv, vweugcb, Mumbai- 410099! !@#$%^&*()\",\n\t\"XXXbirthDate\": \"1990-02-01\",\n\t\"XXXjoiningDate\": \"2020-02-01\",\n\t\"department\": \"Manufacturing department\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetAllLeaveApplicationList",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/list",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"employeeName\": \"nik1\",\n\t\"mobileNo\": \"9123456789\",\n\t\"emergencyContactNo\": \"9012345678\",\n\t\"address\": \"Mviuewgu vwojuguv, vweugcb, Mumbai- 410099! !@#$%^&*()\",\n\t\"XXXbirthDate\": \"1990-02-01\",\n\t\"XXXjoiningDate\": \"2020-02-01\",\n\t\"department\": \"Manufacturing department\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpUpdateLeaveApplication",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/employee/5/leaveApplication/2",
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"erpEmployee\": {\n\t\t\"employeeId\":1\n\t},\n\t\"fromDate\": \"2020-04-01\",\n\t\"toDate\": \"2020-04-05\",\n\t\"reason\": \"Attend marriage2\",\n\t\"leaveStatus\": \"Pending Approval\",\n\t\"leaveApproverEmployee\": {\n\t\t\"employeeId\":1\n\t}\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpDeleteLeaveApplication",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/id=1",
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetLeaveFilter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/filter",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"filters\":[{\n\t\t\"column\": \"fromDate\",\n\t\t\"operator\": \">\",\n\t\t\"value\":\"2019-04-01\"\n\t},{\n\t\t\"column\": \"leaveStatus\",\n\t\t\"operator\": \"like\",\n\t\t\"value\":\"Approved\"\n\t}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetLeaveFilterLeavesPendingApproval",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/filter",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"filters\":[{\n\t\t\"column\": \"leaveStatus\",\n\t\t\"operator\": \"like\",\n\t\t\"value\":\"Pending Approval\"\n\t}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetLeaveFilterLeavesApproved",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/filter",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"filters\":[{\n\t\t\"column\": \"leaveStatus\",\n\t\t\"operator\": \"like\",\n\t\t\"value\":\"Approved\"\n\t}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetLeaveFilterListOfEmployeeInSpecificTime",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/leaveApplication/filter",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"filters\":[{\n\t\t\"column\": \"leaveStatus\",\n\t\t\"operator\": \"like\",\n\t\t\"value\":\"Approved\"\n\t},{\n\t\t\"column\": \"fromDate\",\n\t\t\"operator\": \">=\",\n\t\t\"value\":\"2020-04-05\"\n\t},{\n\t\t\"column\": \"toDate\",\n\t\t\"operator\": \"<=\",\n\t\t\"value\":\"2020-04-08\"\n\t}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ErpAttendance",
+					"description": "",
+					"item": [
+						{
+							"name": "ErpCreateErpAttendance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/attendance/create/employeeId/26",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"punchDate\": \"2020-04-01\",\n\t\"punchInTimestamp\": \"2020-01-29 09:30:00\",\n\t\"punchOutTimestamp\": \"2020-01-29 18:40:00\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpGetAttendance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/attendance/id=1",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"employeeName\": \"nik1\",\n\t\"mobileNo\": \"9123456789\",\n\t\"emergencyContactNo\": \"9012345678\",\n\t\"address\": \"Mviuewgu vwojuguv, vweugcb, Mumbai- 410099! !@#$%^&*()\",\n\t\"XXXbirthDate\": \"1990-02-01\",\n\t\"XXXjoiningDate\": \"2020-02-01\",\n\t\"department\": \"Manufacturing department\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpUpdateAttendance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/attendance/id=1",
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"punchDate\": \"2020-04-29\",\n\t\"punchInTimestamp\": \"2020-04-29 09:35:00\",\n\t\"punchOutTimestamp\": \"2020-04-29 18:40:00\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpDeleteAttendance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/attendance/id=1",
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": "",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpAttendanceFilterAllEmployeesForDates",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/attendance/filter",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"filters\":[{\n\t\t\"column\": \"punchDate\",\n\t\t\"operator\": \">=\",\n\t\t\"value\":\"2020-04-25\"\n\t},{\n\t\t\"column\": \"punchDate\",\n\t\t\"operator\": \"<=\",\n\t\t\"value\":\"2020-05-01\"\n\t}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpAttendanceFilter1EmployeeForDates",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/attendance/filter",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"filters\":[{\n\t\t\"column\": \"erpEmployee.employeeId\",\n\t\t\"operator\": \"=\",\n\t\t\"value\":\"26\"\n\t},{\n\t\t\"column\": \"punchDate\",\n\t\t\"operator\": \">=\",\n\t\t\"value\":\"2020-04-25\"\n\t},{\n\t\t\"column\": \"punchDate\",\n\t\t\"operator\": \"<=\",\n\t\t\"value\":\"2020-05-01\"\n\t}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "ErpAttendanceLatecomers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"token\", \"Bearer \"+jsonData.token);"
+										]
+									}
+								}
+							],
+							"request": {
+								"url": "http://{{serverUrl}}/ec/erp/attendance/create/employeeId/26",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"punchDate\": \"2020-04-01\",\n\t\"punchInTimestamp\": \"2020-01-29 09:30:00\",\n\t\"punchOutTimestamp\": \"2020-01-29 18:40:00\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

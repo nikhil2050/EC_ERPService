@@ -22,11 +22,14 @@ import org.hibernate.envers.Audited;
 import org.springframework.lang.NonNull;
 
 import com.ec.erp.softdelete.SoftDeletableEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
 @Table(name = "security_user",uniqueConstraints={@UniqueConstraint(columnNames={"user_name"})})
-@Audited
+//@Audited
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Where(clause = SoftDeletableEntity.SOFT_DELETED_CLAUSE)
 public class User extends SoftDeletableEntity {
 
@@ -66,6 +69,8 @@ public class User extends SoftDeletableEntity {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -84,12 +89,14 @@ public class User extends SoftDeletableEntity {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	@JsonIgnore
 	public boolean isPasswordExpired() {
 		return passwordExpired;
 	}
 	public void setPasswordExpired(boolean passwordExpired) {
 		this.passwordExpired = passwordExpired;
 	}
+	@JsonIgnore
 	public Set<Role> getRoles() {
 		return roles;
 	}

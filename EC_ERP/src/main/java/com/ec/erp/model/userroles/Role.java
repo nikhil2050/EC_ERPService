@@ -15,7 +15,7 @@ import com.ec.erp.softdelete.SoftDeletableEntity;
 
 @Entity
 @Table(name = "role")
-@Audited
+//@Audited
 @Where(clause = SoftDeletableEntity.SOFT_DELETED_CLAUSE)
 public class Role extends SoftDeletableEntity {
 

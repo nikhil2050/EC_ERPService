@@ -2,11 +2,16 @@ package com.ec.erp.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,19 +20,26 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
+import com.ec.erp.model.userroles.User;
 import com.ec.erp.softdelete.SoftDeletableEntity;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.NonNull;
 
 @Entity
-@Table(name="employee_master")
-@Audited
+@Table(name="ErpEmployee")
+//@Audited
 @Where(clause= SoftDeletableEntity.SOFT_DELETED_CLAUSE)
+@JsonIgnoreProperties(value = { "createdAt", "updatedAt","hibernateLazyInitializer", "handler" }, allowGetters = true)
 public class ErpEmployee extends SoftDeletableEntity{
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="employee_id", updatable=false, nullable=false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="employeeId", updatable=false, nullable=false)
 	private Long employeeId;
 	
 	@CreationTimestamp
@@ -35,6 +47,14 @@ public class ErpEmployee extends SoftDeletableEntity{
 	@Column(nullable = false, updatable = false)
 	private Date createdDate;
 
+	@NonNull
+	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name="userId")
+//	@JoinColumn(name="userId",nullable=false)
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	@NotFound(action=NotFoundAction.IGNORE)
+	private User user;
+	
 	private String employeeName;
 	private String mobileNo;
 	private String emergencyContactNo;
@@ -48,6 +68,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 	
 	private String department;
 
+	@JsonGetter(value="employeeId")
 	public Long getEmployeeId() {
 		return employeeId;
 	}
@@ -56,6 +77,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 		this.employeeId = employeeId;
 	}
 
+	@JsonGetter(value="createdDate")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -63,7 +85,17 @@ public class ErpEmployee extends SoftDeletableEntity{
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+	
+	@JsonGetter(value="user")
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@JsonGetter(value="employeeName")
 	public String getEmployeeName() {
 		return employeeName;
 	}
@@ -72,6 +104,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 		this.employeeName = employeeName;
 	}
 
+	@JsonGetter(value="mobileNo")
 	public String getMobileNo() {
 		return mobileNo;
 	}
@@ -80,6 +113,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 		this.mobileNo = mobileNo;
 	}
 
+	@JsonGetter(value="emergencyContactNo")
 	public String getEmergencyContactNo() {
 		return emergencyContactNo;
 	}
@@ -88,6 +122,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 		this.emergencyContactNo = emergencyContactNo;
 	}
 
+	@JsonGetter(value="address")
 	public String getAddress() {
 		return address;
 	}
@@ -96,6 +131,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 		this.address = address;
 	}
 
+	@JsonGetter(value="birthDate")
 	public Date getBirthDate() {
 		return birthDate;
 	}
@@ -104,6 +140,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 		this.birthDate = birthDate;
 	}
 
+	@JsonGetter(value="joiningDate")
 	public Date getJoiningDate() {
 		return joiningDate;
 	}
@@ -112,6 +149,7 @@ public class ErpEmployee extends SoftDeletableEntity{
 		this.joiningDate = joiningDate;
 	}
 
+	@JsonGetter(value="department")
 	public String getDepartment() {
 		return department;
 	}
@@ -119,10 +157,14 @@ public class ErpEmployee extends SoftDeletableEntity{
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	
-	public ErpEmployee copy(ErpEmployee emp) {
-		
-		return emp;
-		
+
+	@Override
+	public String toString() {
+		return "ErpEmployee [employeeId=" + employeeId + ", createdDate=" + createdDate + ", user=" + user
+				+ ", employeeName=" + employeeName + ", mobileNo=" + mobileNo + ", emergencyContactNo="
+				+ emergencyContactNo + ", address=" + address + ", birthDate=" + birthDate + ", joiningDate="
+				+ joiningDate + ", department=" + department + "]";
 	}
+
+	
 }

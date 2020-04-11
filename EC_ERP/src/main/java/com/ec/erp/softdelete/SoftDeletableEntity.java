@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.envers.Audited;
 
 @MappedSuperclass
-@Audited
+//@Audited
 public class SoftDeletableEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
